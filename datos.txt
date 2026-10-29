@@ -1,0 +1,15 @@
+# DATOS DE LA ESCUELA MACHACA EMDR
+# Escribe cada dato después de los dos puntos.
+# Lo que dejes vacío NO aparece en la página.
+# En GitHub: abre este archivo, toca el lápiz, escribe y luego «Commit changes».
+
+Nombre: Machaca EMDR
+Lema: Aprendemos investigando: cuidamos el agua, estudiamos los manglares y programamos robots.
+Director: Andre
+Clave SEP (CCT o RVOE):
+Niveles: 2
+Dirección: P.º de Las Rosas S/N, Las Flores, 67114 Cdad. Apodaca, N.L.
+Ciudad: Apodaca
+Teléfono: +52 81 2080 0765
+Correo: machacacoach@gmail.com
+Sesiones: Miércoles y sábados

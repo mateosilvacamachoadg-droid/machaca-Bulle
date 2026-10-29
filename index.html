@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Machaca EMDR</title>
+<meta name="description" content="Machaca EMDR: aprendemos investigando. Proyectos de purificación de agua, manglares y estuarios, y robótica.">
+<meta property="og:title" content="Machaca EMDR">
+<meta property="og:description" content="Aprendemos investigando: cuidamos el agua, estudiamos los manglares y programamos robots.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0E8F7E">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="bubble/iconos/apple-touch-icon.png">
+<style>
+  :root {
+    --papel: #F5F5F7;
+    --superficie: #FFFFFF;
+    --tinta: #1D1D1F;
+    --tinta-2: #6E6E73;
+    --linea: rgba(0, 0, 0, 0.08);
+    --acento: #0E8F7E;
+    --acento-tinta: #0A6E61;
+    --acento-suave: #E3F4F1;
+    --azul: #0B5E8E;
+    --sombra: 0 1px 2px rgba(0, 0, 0, 0.04), 0 10px 30px rgba(0, 0, 0, 0.06);
+    --cielo-a: #CFEFFF;
+    --cielo-b: #F2FBF7;
+    --sol: #FFF3C4;
+    --agua-a: #3FB9B0;
+    --agua-b: #0F6E8C;
+    --hoja: #2F7D5B;
+    --hoja-2: #3E9A6E;
+    --tronco: #5B4636;
+    --fuente: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI Variable Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --fuente-titulo: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI Variable Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --papel: #000000;
+      --superficie: #1C1C1E;
+      --tinta: #F5F5F7;
+      --tinta-2: #AEAEB2;
+      --linea: rgba(255, 255, 255, 0.1);
+      --acento: #2BB3A0;
+      --acento-tinta: #5FD3C1;
+      --acento-suave: rgba(43, 179, 160, 0.16);
+      --azul: #4AA8DA;
+      --sombra: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 30px rgba(0, 0, 0, 0.4);
+      --cielo-a: #0B1A33;
+      --cielo-b: #173A4A;
+      --sol: #F6F0D8;
+      --agua-a: #146B70;
+      --agua-b: #072F45;
+      --hoja: #1C4F3B;
+      --hoja-2: #256548;
+      --tronco: #3A2C22;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --papel: #000000; --superficie: #1C1C1E; --tinta: #F5F5F7; --tinta-2: #AEAEB2; --linea: rgba(255, 255, 255, 0.1);
+    --acento: #2BB3A0; --acento-tinta: #5FD3C1; --acento-suave: rgba(43, 179, 160, 0.16); --azul: #4AA8DA;
+    --sombra: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 30px rgba(0, 0, 0, 0.4);
+    --cielo-a: #0B1A33; --cielo-b: #173A4A; --sol: #F6F0D8; --agua-a: #146B70; --agua-b: #072F45;
+    --hoja: #1C4F3B; --hoja-2: #256548; --tronco: #3A2C22; color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--papel); color: var(--tinta); font: 17px/1.5 var(--fuente); -webkit-font-smoothing: antialiased; }
+  a { color: var(--acento-tinta); }
+  img, svg { display: block; max-width: 100%; }
+  .envoltura { width: min(1080px, 100% - 32px); margin-inline: auto; }
+
+  /* Barra */
+  .barra { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--papel) 78%, transparent); backdrop-filter: saturate(180%) blur(18px); -webkit-backdrop-filter: saturate(180%) blur(18px); border-bottom: 1px solid var(--linea); }
+  .barra .envoltura { display: flex; align-items: center; gap: 16px; height: 56px; }
+  .marca { display: flex; align-items: center; gap: 10px; color: var(--tinta); text-decoration: none; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; }
+  .marca img { width: 30px; height: 30px; }
+  .menu { display: flex; gap: 22px; margin-left: auto; font-size: 14px; }
+  .menu a { color: var(--tinta-2); text-decoration: none; }
+  .menu a:hover { color: var(--tinta); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 20px; border-radius: 999px; font: 600 16px/1 var(--fuente); text-decoration: none; transition: transform .15s ease, background-color .15s ease; }
+  .btn:active { transform: scale(0.97); }
+  .btn-pri { background: var(--acento); color: #fff; }
+  .btn-pri:hover { background: var(--acento-tinta); }
+  .btn-sec { background: var(--acento-suave); color: var(--acento-tinta); }
+  .barra .btn { min-height: 34px; padding: 0 14px; font-size: 14px; }
+  @media (max-width: 640px) { .menu { display: none; } .barra .btn { margin-left: auto; } }
+
+  /* Portada */
+  .portada { padding: 56px 0 40px; }
+  .portada .envoltura { display: grid; grid-template-columns: 1fr 1.1fr; gap: 40px; align-items: center; }
+  .etiqueta { display: inline-block; font-size: 14px; font-weight: 600; color: var(--acento-tinta); background: var(--acento-suave); padding: 6px 12px; border-radius: 999px; margin: 0 0 18px; }
+  h1 { font-family: var(--fuente-titulo); font-size: clamp(44px, 7vw, 76px); line-height: 1.02; letter-spacing: -0.035em; margin: 0 0 18px; text-wrap: balance; }
+  .lema { font-size: clamp(19px, 2.2vw, 23px); line-height: 1.4; color: var(--tinta-2); margin: 0 0 28px; max-width: 30ch; text-wrap: pretty; }
+  .acciones { display: flex; flex-wrap: wrap; gap: 12px; }
+  .escena { border-radius: 32px; overflow: hidden; box-shadow: var(--sombra); aspect-ratio: 800 / 460; background: var(--cielo-a); }
+  .escena svg { width: 100%; height: 100%; }
+  .flota { animation: flota 6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+  @keyframes flota { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  @media (prefers-reduced-motion: reduce) { .flota { animation: none; } html { scroll-behavior: auto; } }
+  @media (max-width: 820px) {
+    .portada { padding-top: 32px; }
+    .portada .envoltura { grid-template-columns: 1fr; gap: 28px; }
+    .escena { border-radius: 24px; }
+  }
+
+  /* Secciones */
+  section { padding: 56px 0; }
+  h2 { font-family: var(--fuente-titulo); font-size: clamp(30px, 4.4vw, 44px); letter-spacing: -0.025em; line-height: 1.1; margin: 0 0 10px; }
+  .intro { color: var(--tinta-2); font-size: 19px; margin: 0 0 32px; max-width: 46ch; }
+  .tarjetas { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
+  .tarjeta { background: var(--superficie); border-radius: 24px; padding: 26px; box-shadow: var(--sombra); display: flex; flex-direction: column; gap: 10px; }
+  .tarjeta h3 { font-size: 20px; letter-spacing: -0.01em; margin: 6px 0 0; }
+  .tarjeta p { margin: 0; color: var(--tinta-2); font-size: 16px; }
+  .tarjeta .icono { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: var(--acento-suave); color: var(--acento-tinta); }
+  .tarjeta .icono svg { width: 26px; height: 26px; }
+  .tarjeta a.mas { margin-top: auto; padding-top: 6px; font-weight: 600; text-decoration: none; font-size: 16px; }
+  .tarjeta a.mas:hover { text-decoration: underline; }
+
+  .sesiones { background: var(--superficie); border-radius: 32px; box-shadow: var(--sombra); padding: clamp(28px, 5vw, 48px); display: grid; grid-template-columns: 1.2fr 1fr; gap: 28px; align-items: center; }
+  .dias { display: flex; gap: 12px; flex-wrap: wrap; }
+  .dia { flex: 1 1 140px; border-radius: 22px; padding: 22px; background: linear-gradient(160deg, #0E8F7E, #0B5E8E); color: #fff; }
+  .dia b { display: block; font-family: var(--fuente-titulo); font-size: 26px; letter-spacing: -0.02em; }
+  .dia span { opacity: .85; font-size: 15px; }
+  @media (max-width: 820px) { .sesiones { grid-template-columns: 1fr; } }
+
+  .datos { background: var(--superficie); border-radius: 24px; box-shadow: var(--sombra); margin: 0; padding: 6px 24px; }
+  .datos div { display: grid; grid-template-columns: minmax(120px, 220px) 1fr; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--linea); }
+  .datos div:last-child { border-bottom: 0; }
+  .datos dt { color: var(--tinta-2); font-size: 15px; }
+  .datos dd { margin: 0; font-weight: 500; overflow-wrap: anywhere; }
+  @media (max-width: 560px) { .datos div { grid-template-columns: 1fr; gap: 2px; } }
+
+  footer { padding: 32px 0 48px; color: var(--tinta-2); font-size: 14px; border-top: 1px solid var(--linea); }
+  footer .envoltura { display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: space-between; }
+  footer a { color: var(--tinta-2); }
+</style>
+</head>
+<body>
+
+<header class="barra">
+  <div class="envoltura">
+    <a class="marca" href="#inicio"><img src="logo.svg" alt="" width="30" height="30"><span data-campo="nombre">Machaca EMDR</span></a>
+    <nav class="menu" aria-label="Secciones">
+      <a href="#proyectos">Proyectos</a>
+      <a href="#sesiones">Sesiones</a>
+      <a href="#contacto" data-si="contacto">Contacto</a>
+    </nav>
+    <a class="btn btn-pri" href="bubble/">Abrir Bubble</a>
+  </div>
+</header>
+
+<main id="inicio">
+  <div class="portada">
+    <div class="envoltura">
+      <div>
+        <p class="etiqueta">Escuela</p>
+        <h1 data-campo="nombre">Machaca EMDR</h1>
+        <p class="lema" data-campo="lema">Aprendemos investigando: cuidamos el agua, estudiamos los manglares y programamos robots.</p>
+        <div class="acciones">
+          <a class="btn btn-pri" href="#proyectos">Conoce los proyectos</a>
+          <a class="btn btn-sec" href="bubble/">Conoce a Bubble</a>
+        </div>
+      </div>
+
+      <div class="escena" role="img" aria-label="Manglares junto al agua y una burbuja que flota">
+        <svg viewBox="0 0 800 460" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs>
+            <linearGradient id="cielo" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" style="stop-color: var(--cielo-a)"/>
+              <stop offset="1" style="stop-color: var(--cielo-b)"/>
+            </linearGradient>
+            <radialGradient id="sol" cx="50%" cy="50%" r="50%">
+              <stop offset="0" style="stop-color: var(--sol)" stop-opacity="1"/>
+              <stop offset="1" style="stop-color: var(--sol)" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="agua" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" style="stop-color: var(--agua-a)"/>
+              <stop offset="1" style="stop-color: var(--agua-b)"/>
+            </linearGradient>
+            <radialGradient id="burbuja" cx="38%" cy="34%" r="70%">
+              <stop offset="0" stop-color="#FFFFFF" stop-opacity=".95"/>
+              <stop offset=".35" stop-color="#BFE9FF" stop-opacity=".55"/>
+              <stop offset=".7" stop-color="#9C8CFF" stop-opacity=".4"/>
+              <stop offset="1" stop-color="#FF9BD2" stop-opacity=".6"/>
+            </radialGradient>
+            <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+              <stop offset=".55" stop-color="#9FE6FF" stop-opacity=".45"/>
+              <stop offset="1" stop-color="#9FE6FF" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+
+          <rect width="800" height="460" fill="url(#cielo)"/>
+          <circle cx="410" cy="120" r="110" fill="url(#sol)"/>
+
+          <!-- agua -->
+          <rect y="318" width="800" height="142" fill="url(#agua)"/>
+          <path d="M0 340 q20 -6 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="3"/>
+          <path d="M-20 378 q25 -7 50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0 t50 0" fill="none" stroke="#fff" stroke-opacity=".18" stroke-width="3"/>
+          <path d="M0 420 q30 -8 60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0" fill="none" stroke="#fff" stroke-opacity=".12" stroke-width="3"/>
+
+          <!-- manglar 1 -->
+          <g>
+            <g fill="none" style="stroke: var(--tronco)" stroke-linecap="round">
+              <path d="M150 220 V285" stroke-width="10"/>
+              <path d="M150 262 Q116 266 106 326" stroke-width="5"/>
+              <path d="M150 268 Q132 284 128 326" stroke-width="5"/>
+              <path d="M150 268 Q170 284 174 326" stroke-width="5"/>
+              <path d="M150 262 Q186 264 196 326" stroke-width="5"/>
+            </g>
+            <g style="fill: var(--hoja)">
+              <circle cx="150" cy="170" r="54"/><circle cx="104" cy="196" r="40"/><circle cx="196" cy="198" r="42"/>
+            </g>
+            <g style="fill: var(--hoja-2)">
+              <circle cx="138" cy="150" r="30"/><circle cx="178" cy="176" r="24"/>
+            </g>
+          </g>
+
+          <!-- manglar 2 -->
+          <g>
+            <g fill="none" style="stroke: var(--tronco)" stroke-linecap="round">
+              <path d="M300 246 V292" stroke-width="8"/>
+              <path d="M300 276 Q278 280 270 326" stroke-width="4"/>
+              <path d="M300 280 Q288 294 288 326" stroke-width="4"/>
+              <path d="M300 280 Q313 294 314 326" stroke-width="4"/>
+              <path d="M300 276 Q324 279 332 326" stroke-width="4"/>
+            </g>
+            <g style="fill: var(--hoja)">
+              <circle cx="300" cy="212" r="38"/><circle cx="270" cy="232" r="28"/><circle cx="332" cy="232" r="30"/>
+            </g>
+            <circle cx="292" cy="198" r="20" style="fill: var(--hoja-2)"/>
+          </g>
+
+          <!-- manglar 3 -->
+          <g>
+            <g fill="none" style="stroke: var(--tronco)" stroke-linecap="round">
+              <path d="M720 210 V282" stroke-width="11"/>
+              <path d="M720 258 Q684 262 672 326" stroke-width="5"/>
+              <path d="M720 264 Q700 282 696 326" stroke-width="5"/>
+              <path d="M720 264 Q742 282 746 326" stroke-width="5"/>
+              <path d="M720 258 Q758 260 770 326" stroke-width="5"/>
+            </g>
+            <g style="fill: var(--hoja)">
+              <circle cx="720" cy="158" r="60"/><circle cx="668" cy="190" r="42"/><circle cx="772" cy="188" r="44"/>
+            </g>
+            <g style="fill: var(--hoja-2)">
+              <circle cx="704" cy="134" r="32"/><circle cx="752" cy="160" r="26"/>
+            </g>
+          </g>
+
+          <!-- reflejos -->
+          <g fill="#fff" fill-opacity=".14">
+            <rect x="96" y="334" width="110" height="5" rx="2.5"/>
+            <rect x="262" y="334" width="78" height="4" rx="2"/>
+            <rect x="660" y="334" width="120" height="5" rx="2.5"/>
+          </g>
+
+          <!-- burbuja -->
+          <g class="flota">
+            <circle cx="520" cy="190" r="74" fill="url(#halo)"/>
+            <circle cx="520" cy="190" r="50" fill="url(#burbuja)" stroke="#fff" stroke-opacity=".75" stroke-width="1.5"/>
+            <ellipse cx="502" cy="168" rx="14" ry="8" fill="#fff" fill-opacity=".85" transform="rotate(-32 502 168)"/>
+            <rect x="505" y="183" width="9" height="17" rx="4.5" fill="#1D2B4F"/>
+            <rect x="527" y="183" width="9" height="17" rx="4.5" fill="#1D2B4F"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <section id="proyectos">
+    <div class="envoltura">
+      <h2>Nuestros proyectos</h2>
+      <p class="intro">Aprendemos haciendo preguntas, probando ideas y midiendo lo que pasa.</p>
+      <div class="tarjetas">
+        <article class="tarjeta">
+          <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="8" width="18" height="8" rx="4" transform="rotate(-35 12 12)"/><path d="M9.7 8.7l4.6 6.6" transform="rotate(0)"/></svg></div>
+          <h3>Proyecto Pastilla</h3>
+          <p>Un dispositivo en forma de pastilla, inspirado en la naturaleza, para ayudar a purificar agua contaminada. Lo probamos paso a paso: disolución, coagulación, floculación y sedimentación.</p>
+        </article>
+        <article class="tarjeta">
+          <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="7" r="4"/><path d="M12 11v4M12 14c-3 0-4 2-5 6M12 14c3 0 4 2 5 6M12 15v5M3 20h18"/></svg></div>
+          <h3>Manglares y estuarios</h3>
+          <p>Estudiamos estos ecosistemas con datos de fuentes confiables y los convertimos en gráficas para entenderlos y cuidarlos.</p>
+        </article>
+        <article class="tarjeta">
+          <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="7" width="12" height="10" rx="3"/><path d="M12 4v3M9.5 11h.01M14.5 11h.01M10 14h4M4 12h2M18 12h2"/></svg></div>
+          <h3>Robótica</h3>
+          <p>Diseñamos y programamos los recorridos de nuestros robots, y los mejoramos midiendo cada prueba.</p>
+        </article>
+        <article class="tarjeta">
+          <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M10 10.5v2M14 10.5v2M8.5 8.5a4 4 0 0 1 2-1.6"/></svg></div>
+          <h3>Bubble</h3>
+          <p>Nuestra asistente de inteligencia artificial. Nos ayuda con gráficas, recorridos, investigación y el libro de cada sesión.</p>
+          <a class="mas" href="bubble/">Abrir Bubble ›</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="sesiones">
+    <div class="envoltura">
+      <div class="sesiones">
+        <div>
+          <h2>Sesiones</h2>
+          <p class="intro" style="margin-bottom:0">Nos reunimos <span data-campo="sesiones-texto">los miércoles y sábados</span>. Lo que hacemos en cada sesión queda anotado en el libro del equipo.</p>
+        </div>
+        <div class="dias" id="dias">
+          <div class="dia"><b>Miércoles</b><span>Sesión</span></div>
+          <div class="dia"><b>Sábado</b><span>Sesión</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto" hidden>
+    <div class="envoltura">
+      <h2>Datos de la escuela</h2>
+      <p class="intro">Información de contacto de <span data-campo="nombre">Machaca EMDR</span>.</p>
+      <dl class="datos" id="lista-datos"></dl>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="envoltura">
+    <span>© <span id="anio">2026</span> <span data-campo="nombre">Machaca EMDR</span></span>
+    <span><a href="bubble/">Bubble</a> · <a href="#proyectos">Proyectos</a> · <a href="#sesiones">Sesiones</a></span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  document.getElementById('anio').textContent = new Date().getFullYear();
+
+  // Etiquetas que se muestran en «Datos de la escuela», en este orden.
+  var CAMPOS = [
+    ['nombre', 'Nombre'],
+    ['director', 'Director(a)'],
+    ['clave', 'Clave SEP'],
+    ['niveles', 'Niveles'],
+    ['direccion', 'Dirección'],
+    ['ciudad', 'Ciudad'],
+    ['telefono', 'Teléfono'],
+    ['correo', 'Correo']
+  ];
+
+  function llave(t) {
+    t = t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').trim();
+    if (t.indexOf('clave') === 0) return 'clave';
+    return t.split(/[\s(]/)[0];
+  }
+
+  function lee(texto) {
+    var d = {};
+    texto.split(/\r?\n/).forEach(function (linea) {
+      if (/^\s*#/.test(linea)) return;
+      var i = linea.indexOf(':');
+      if (i < 1) return;
+      var v = linea.slice(i + 1).trim();
+      if (v) d[llave(linea.slice(0, i))] = v;
+    });
+    return d;
+  }
+
+  function aplica(d) {
+    if (d.nombre) {
+      document.title = d.nombre;
+      document.querySelectorAll('[data-campo="nombre"]').forEach(function (e) { e.textContent = d.nombre; });
+    }
+    if (d.lema) document.querySelector('[data-campo="lema"]').textContent = d.lema;
+
+    if (d.sesiones) {
+      var dias = d.sesiones.split(/\s*(?:,|\by\b)\s*/i).filter(Boolean);
+      var caja = document.getElementById('dias');
+      caja.innerHTML = '';
+      dias.forEach(function (dia) {
+        var div = document.createElement('div'); div.className = 'dia';
+        var b = document.createElement('b'); b.textContent = dia.charAt(0).toUpperCase() + dia.slice(1);
+        var s = document.createElement('span'); s.textContent = 'Sesión';
+        div.appendChild(b); div.appendChild(s); caja.appendChild(div);
+      });
+      document.querySelector('[data-campo="sesiones-texto"]').textContent = 'los ' + d.sesiones.toLowerCase().replace(/sábados?/, 'sábados').replace(/^los\s+/, '');
+    }
+
+    var lista = document.getElementById('lista-datos');
+    lista.innerHTML = '';
+    var extras = 0;
+    CAMPOS.forEach(function (c) {
+      var v = d[c[0]];
+      if (!v) return;
+      if (c[0] !== 'nombre') extras++;
+      var fila = document.createElement('div');
+      var dt = document.createElement('dt'); dt.textContent = c[1];
+      var dd = document.createElement('dd');
+      if (c[0] === 'correo') { var a = document.createElement('a'); a.href = 'mailto:' + v; a.textContent = v; dd.appendChild(a); }
+      else if (c[0] === 'telefono') { var t = document.createElement('a'); t.href = 'tel:' + v.replace(/[^\d+]/g, ''); t.textContent = v; dd.appendChild(t); }
+      else dd.textContent = v;
+      fila.appendChild(dt); fila.appendChild(dd); lista.appendChild(fila);
+    });
+    // Solo se muestra si hay datos además del nombre.
+    var hay = extras > 0;
+    document.getElementById('contacto').hidden = !hay;
+    document.querySelectorAll('[data-si="contacto"]').forEach(function (e) { e.hidden = !hay; });
+  }
+
+  document.querySelectorAll('[data-si="contacto"]').forEach(function (e) { e.hidden = true; });
+  fetch('datos.txt', { cache: 'no-store' })
+    .then(function (r) { return r.ok ? r.text() : ''; })
+    .then(function (t) { if (t) aplica(lee(t)); })
+    .catch(function () {});
+})();
+</script>
+</body>
+</html>
